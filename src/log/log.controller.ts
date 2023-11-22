@@ -10,13 +10,7 @@ import {
 import { LogService } from './log.service';
 import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
 import { User } from './decorators';
-
-class StructObject {
-  @IsNotEmpty()
-  @IsString()
-  name: string;
-  user: string;
-}
+import { LogData } from './data';
 
 @Controller('log')
 export class LogController {
@@ -26,7 +20,7 @@ export class LogController {
     return this.logService.testGet(name);
   }
   @Post('post-test')
-  testPost(@Body() obj: StructObject) {
+  testPost(@Body() obj: LogData) {
     return this.logService.testPost(obj.name.toString());
   }
   @Post('post-test-user')

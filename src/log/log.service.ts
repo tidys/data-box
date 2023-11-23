@@ -27,4 +27,7 @@ export class LogService {
     const result = await this.repository.find({ where: { id: id } });
     return result ?? 'not found';
   }
+  async getAllLogs() {
+    return await this.repository.find();
+  }
 }

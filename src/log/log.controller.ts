@@ -46,4 +46,8 @@ export class LogController {
   getLog(@Body() obj: GetLog) {
     return this.logService.getLog(obj.id);
   }
+  @Post('get-all-log')
+  getAllLogs() {
+    return this.logService.getAllLogs();
+  }
 }

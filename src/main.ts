@@ -8,6 +8,7 @@ async function bootstrap() {
   });
   app.useGlobalPipes(new ValidationPipe());
   const port: number = 3000;
+  app.enableCors();
   await app.listen(port);
   console.log(`http://localhost:${port}`);
 }

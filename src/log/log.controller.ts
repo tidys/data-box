@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Logger,
+  Param,
   ParseIntPipe,
   Post,
   Query,
@@ -39,15 +40,28 @@ export class LogController {
     return user;
   }
   @Post('add-log')
-  addLog(@Body() obj: AddLog) {
+  addLogByPost(@Body() obj: AddLog) {
+    return this.logService.addLog(obj.str);
+  }
+  @Get('add-log')
+  addLogByGet(@Query() obj: AddLog) {
     return this.logService.addLog(obj.str);
   }
   @Post('get-log')
-  getLog(@Body() obj: GetLog) {
+  getLogByPost(@Body() obj: GetLog) {
     return this.logService.getLog(obj.id);
   }
+  @Get('get-log')
+  getLogByGet(@Query('id') id: number) {
+    return this.logService.getLog(id);
+  }
+
   @Post('get-all-log')
-  getAllLogs() {
+  getAllLogsByPost() {
+    return this.logService.getAllLogs();
+  }
+  @Get('get-all-log')
+  getAllLogsByGet() {
     return this.logService.getAllLogs();
   }
 }

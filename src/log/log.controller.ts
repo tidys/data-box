@@ -6,13 +6,14 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Req,
   Query,
 } from '@nestjs/common';
 import { LogService } from './log.service';
 import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
 import { User } from './decorators';
 import { LogData } from './data';
-
+import * as rawbody from 'raw-body';
 class AddLog {
   @IsNotEmpty()
   @IsString()
@@ -42,6 +43,15 @@ export class LogController {
   @Post('add-log')
   addLogByPost(@Body() obj: AddLog) {
     return this.logService.addLog(obj.str);
+  }
+  @Post('add-log-string')
+  async addLogStringByPost(@Body() data, @Req() req) {
+    if (req.readable) {
+      const raw = await rawbody(req);
+      const text = raw.toString().trim();
+      return this.logService.addLog(text);
+    }
+    return 'error';
   }
   @Get('add-log')
   addLogByGet(@Query() obj: AddLog) {
